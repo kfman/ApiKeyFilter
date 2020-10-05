@@ -21,7 +21,8 @@ namespace FilterTest {
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services) {
-            services.AddControllers();
+            services.AddControllers(
+                e=>e.Filters.Add<ApiKeyFilter.ApiFilter>());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -30,7 +31,7 @@ namespace FilterTest {
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
 
             app.UseRouting();
 
