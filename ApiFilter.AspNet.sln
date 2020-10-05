@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FilterTest", "FilterTest\FilterTest.csproj", "{0A62EE1E-F8A1-4930-91CD-942E25BCD02C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiKeyFilter", "ApiFilter.AspNet\ApiKeyFilter.csproj", "{7B064F20-8DCE-46EA-B7A0-20101B907420}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0A62EE1E-F8A1-4930-91CD-942E25BCD02C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0A62EE1E-F8A1-4930-91CD-942E25BCD02C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0A62EE1E-F8A1-4930-91CD-942E25BCD02C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0A62EE1E-F8A1-4930-91CD-942E25BCD02C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7B064F20-8DCE-46EA-B7A0-20101B907420}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7B064F20-8DCE-46EA-B7A0-20101B907420}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7B064F20-8DCE-46EA-B7A0-20101B907420}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7B064F20-8DCE-46EA-B7A0-20101B907420}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
