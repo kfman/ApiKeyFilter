@@ -1,3 +1,5 @@
+using ApiKeyFilter;
+using ApiKeyFilter.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -15,7 +17,9 @@ namespace FilterTest {
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services) {
             services.AddControllers(
-                e=>e.Filters.Add<ApiKeyFilter.ApiFilter>());
+                e => e.Filters.Add<ApiFilter>()
+            ).AddApiKeyController();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

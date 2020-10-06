@@ -2,9 +2,9 @@ using System;
 
 namespace ApiKeyFilter {
     public class LevelFilter : Attribute {
-        public int Level { get; }
+        public string Level { get; }
 
-        public LevelFilter(int level) {
+        public LevelFilter(string level) {
             Level = level;
         }
     }

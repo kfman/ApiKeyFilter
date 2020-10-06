@@ -1,4 +1,10 @@
-http://localhost:5000/WeatherForeCast
+GET {{BaseUrl}}/WeatherForeCast
+Accept: application/json
+Content-Type: application/json
+
+###
+
+GET {{BaseUrl}}/api/accessControl/ApiKey
 Accept: application/json
 Content-Type: application/json
 
