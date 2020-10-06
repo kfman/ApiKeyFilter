@@ -7,6 +7,7 @@ namespace ApiKeyFilter.Database {
         TModel Get(int id);
         IQueryable<TModel> Get();
         TModel Add(TModel model);
+        TModel Update(TModel model);
         void Delete(TModel model);
         void Delete(int id);
     }

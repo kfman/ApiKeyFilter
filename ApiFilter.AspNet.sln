@@ -2,7 +2,7 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FilterTest", "FilterTest\FilterTest.csproj", "{0A62EE1E-F8A1-4930-91CD-942E25BCD02C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiKeyFilter", "ApiFilter.AspNet\ApiKeyFilter.csproj", "{7B064F20-8DCE-46EA-B7A0-20101B907420}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiKeyFilter", "ApiKeyFilter\ApiKeyFilter.csproj", "{7B064F20-8DCE-46EA-B7A0-20101B907420}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

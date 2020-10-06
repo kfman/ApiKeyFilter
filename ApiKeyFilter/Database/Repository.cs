@@ -23,8 +23,15 @@ namespace ApiKeyFilter.Database {
             return model;
         }
 
+        public TModel Update(TModel model) {
+            _dbSet.Update(model);
+            _unitOfWork.SaveChanges();
+            return model;
+        }
+
         public void Delete(TModel model) {
-            throw new System.NotImplementedException();
+            _dbSet.Remove(model);
+            _unitOfWork.SaveChanges();
         }
 
         public void Delete(int id) => Delete(Get(id));
