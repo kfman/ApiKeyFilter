@@ -6,6 +6,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\ApiFilter.AspNet\ApiKeyFilter.csproj" />
+      <ProjectReference Include="..\ApiKeyFilter\ApiKeyFilter.csproj" />
     </ItemGroup>
 
 
