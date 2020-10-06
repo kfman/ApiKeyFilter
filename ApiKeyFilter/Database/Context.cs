@@ -36,7 +36,7 @@ namespace ApiKeyFilter.Database {
                 .HasForeignKey(ar => ar.RoleId);
             
             modelBuilder.Entity<ApiKeyRoles>()
-                .HasIndex(a => new {a.ApiKeyId, a.RoleId});
+                .HasKey(a => new {a.ApiKeyId, a.RoleId});
         }
     }
 }
