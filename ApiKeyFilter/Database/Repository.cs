@@ -6,11 +6,11 @@ using Microsoft.EntityFrameworkCore;
 namespace ApiKeyFilter.Database {
     public class Repository<TModel> : IRepository<TModel> where TModel : ModelBase {
         private readonly DbSet<TModel> _dbSet;
-        private readonly IUnitOfWork _unitOfWork;
+        private readonly DbContext _context;
 
-        public Repository(DbSet<TModel> dbSet, IUnitOfWork unitOfWork) {
+        public Repository(DbSet<TModel> dbSet, DbContext context) {
             _dbSet = dbSet;
-            _unitOfWork = unitOfWork;
+            _context = context;
         }
 
         public TModel Get(int id) => _dbSet.FirstOrDefault(d => d.Id == id);
@@ -19,19 +19,19 @@ namespace ApiKeyFilter.Database {
 
         public TModel Add(TModel model) {
             _dbSet.Add(model);
-            _unitOfWork.SaveChanges();
+            _context.SaveChanges();
             return model;
         }
 
         public TModel Update(TModel model) {
             _dbSet.Update(model);
-            _unitOfWork.SaveChanges();
+            _context.SaveChanges();
             return model;
         }
 
         public void Delete(TModel model) {
             _dbSet.Remove(model);
-            _unitOfWork.SaveChanges();
+            _context.SaveChanges();
         }
 
         public void Delete(int id) => Delete(Get(id));

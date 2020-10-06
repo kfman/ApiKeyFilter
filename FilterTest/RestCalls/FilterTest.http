@@ -9,3 +9,14 @@ Accept: application/json
 Content-Type: application/json
 
 ###
+
+
+POST {{BaseUrl}}/api/accessControl/ApiKey
+Accept: application/json
+Content-Type: application/json
+
+{
+  "description": "Weather test key"
+}
+
+###

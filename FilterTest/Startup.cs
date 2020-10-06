@@ -18,8 +18,8 @@ namespace FilterTest {
         public void ConfigureServices(IServiceCollection services) {
             services.AddControllers(
                 e => e.Filters.Add<ApiFilter>()
-            ).AddApiKeyController();
-
+            );
+            services.AddApiKeyController();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

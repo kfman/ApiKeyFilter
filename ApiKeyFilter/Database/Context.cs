@@ -8,11 +8,12 @@ namespace ApiKeyFilter.Database {
         public DbSet<ApiKey> ApiKeys { get; set; }
         public DbSet<Role> Roles { get; set; }
 
-        public Context() : this("Data Source=./apiKeys.sqlite") {
+        public Context() : this("Data Source=../apiKeys.sqlite") {
         }
 
         public Context(string connectionString) {
             _connectionString = connectionString;
+            Database.EnsureCreated();
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {

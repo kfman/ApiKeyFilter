@@ -11,6 +11,13 @@ namespace ApiKeyFilter.Database {
 
         public UnitOfWork(string connectionString) {
             _context = new Context(connectionString);
+            InitRepositories();
+        }
+
+        private void InitRepositories() {
+            ApiKeys = new Repository<ApiKey>(_context.ApiKeys, _context);
+            Roles = new Repository<Role>(_context.Roles,_context);
+            
         }
     }
 }

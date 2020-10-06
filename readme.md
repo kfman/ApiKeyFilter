@@ -11,8 +11,8 @@ Make sure that your __ConfigureServices__ contains the following lines.
 public void ConfigureServices(IServiceCollection services) {
     services.AddControllers(
         e => e.Filters.Add<ApiFilter>()
-    ).AddApiKeyController();
-
+    );
+    services.AddApiKeyController();
 }
 ```
 
