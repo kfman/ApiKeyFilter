@@ -78,7 +78,7 @@ Content-Type: application/json
 ApiKey: {{ApiMasterKey}}
 
 > {%
-client.test("Creting new role", function(){
+client.test("Creating new role", function(){
     client.assert(response.status === 200, "Error creating new role")
 });
 %}
