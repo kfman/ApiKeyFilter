@@ -28,32 +28,40 @@ namespace ApiKeyFilter {
 
             if (!context.HttpContext.Request.Headers.ContainsKey("ApiKey")) {
                 context.Result = new UnauthorizedObjectResult("ApiKey is required");
+                AddLogEntry(context, "No ApiKey provided", false);
                 return Task.CompletedTask;
             }
 
             var apiKeyString = context.HttpContext.Request.Headers["ApiKey"].ToString();
             if (apiKeyString == ApiKeyRepository.MasterApiKey) {
-                _unitOfWork.LogEntries.Add(new LogEntry {
-                    Id = Guid.NewGuid().ToString(),
-                    ApiKeyString = apiKeyString,
-                    Controller = context.HttpContext.Request.Path.Value,
-                    AccessGranted = true
-                });
+                AddLogEntry(context, apiKeyString, true);
                 return next.Invoke();
             }
 
             var apiKey = _unitOfWork.ApiKeys.Get(apiKeyString);
             if (apiKey == null) {
                 context.Result = new UnauthorizedObjectResult("ApiKey is invalid");
+                AddLogEntry(context, apiKeyString, false);
                 return Task.CompletedTask;
             }
 
             if (!apiKey.ContainsRoll(levelFilter.Select(l => l.Level).ToList())) {
                 context.Result = new UnauthorizedObjectResult("ApiKey is invalid");
+                AddLogEntry(context, apiKeyString, false);
                 return Task.CompletedTask;
             }
 
+            AddLogEntry(context, apiKeyString, true);
             return next.Invoke();
+        }
+
+        private void AddLogEntry(ActionContext context, string apiKeyString, bool granted) {
+            _unitOfWork.LogEntries.Add(new LogEntry {
+                Id = Guid.NewGuid().ToString(),
+                ApiKeyString = apiKeyString,
+                Controller = context.HttpContext.Request.Path.Value,
+                AccessGranted = granted
+            });
         }
     }
 }

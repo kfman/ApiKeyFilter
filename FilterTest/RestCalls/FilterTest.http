@@ -2,28 +2,46 @@ GET {{BaseUrl}}/WeatherForeCast
 Accept: application/json
 Content-Type: application/json
 ApiKey: {{ApiMasterKey}}
+
+> {%
+client.test("Calling weather controller with ApiKey", function() {
+  client.assert(response.status === 200, "Response status is not 200");
+});
+%}
 ###
 
 GET {{BaseUrl}}/WeatherForeCast
 Accept: application/json
 Content-Type: application/json
 
+> {%
+client.test("Call Weather controller without ApiKey --> 401", function() {
+  client.assert(response.status === 401, "Response status is not 401");
+});
+%}
 ###
 
 GET {{BaseUrl}}/api/accessControl/ApiKey
 Accept: application/json
 Content-Type: application/json
 ApiKey: {{ApiMasterKey}}
+
+> {%
+client.test("Call ApiKey Controller with MasterKey", function() {
+  client.assert(response.status === 200, "Response status is not 200");
+});
+%}
+
 ###
 
-
-POST {{BaseUrl}}/api/accessControl/ApiKey
-Accept: application/json
-Content-Type: application/json
-ApiKey: {{ApiMasterKey}}
-
-{
-  "description": "Weather test key"
-}
+#
+#POST {{BaseUrl}}/api/accessControl/ApiKey
+#Accept: application/json
+#Content-Type: application/json
+#ApiKey: {{ApiMasterKey}}
+#
+#{
+#  "description": "Weather test key"
+#}
 
 ###
