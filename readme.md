@@ -6,13 +6,13 @@ The API Keys are organized in an SQLite database. The Roles can be defined as st
 
 ## Installation
 
-Make sure that your __ConfigureServices__ contains the following lines.
+Make sure that your __ConfigureServices__ contains the following lines. You have to specify a master key
 ```c#
 public void ConfigureServices(IServiceCollection services) {
     services.AddControllers(
         e => e.Filters.Add<ApiFilter>()
     );
-    services.AddApiKeyController();
+    services.AddApiKeyController("00000000-0000-0000-0000-000000000000");
 }
 ```
 
