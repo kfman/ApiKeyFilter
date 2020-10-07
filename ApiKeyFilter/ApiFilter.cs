@@ -44,6 +44,11 @@ namespace ApiKeyFilter {
                 AddLogEntry(context, apiKeyString, false);
                 return Task.CompletedTask;
             }
+            
+            if (levelFilter.Any(l=>l.Level == LevelFilter.AllKeysAllowed)){
+                AddLogEntry(context, apiKeyString, true);
+                return next.Invoke();
+            }
 
             if (!apiKey.ContainsRoll(levelFilter.Select(l => l.Level).ToList())) {
                 context.Result = new UnauthorizedObjectResult("ApiKey is invalid");

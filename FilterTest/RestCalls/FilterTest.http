@@ -95,3 +95,15 @@ client.test("Calling weather controller with ApiKey", function() {
 });
 %}
 ###
+
+GET {{BaseUrl}}/WeatherForeCast
+Accept: application/json
+Content-Type: application/json
+ApiKey: e822f84c-59f8-4c1e-82f8-51401273932c
+
+> {%
+client.test("Calling weather controller with ApiKey", function() {
+  client.assert(response.status === 200, "Response status is not 200");
+});
+%}
+###
