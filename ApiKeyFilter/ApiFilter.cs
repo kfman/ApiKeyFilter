@@ -33,7 +33,7 @@ namespace ApiKeyFilter {
             }
 
             var apiKeyString = context.HttpContext.Request.Headers["ApiKey"].ToString();
-            if (apiKeyString == ApiKeyRepository.MasterApiKey) {
+            if (apiKeyString == UnitOfWork.MasterApiKey) {
                 AddLogEntry(context, apiKeyString, true);
                 return next.Invoke();
             }

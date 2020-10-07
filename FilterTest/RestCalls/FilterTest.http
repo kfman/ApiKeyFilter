@@ -52,7 +52,7 @@ client.test("Creating new ApiKey", function (){
 
 ###
 
-POST {{BaseUrl}}/api/accessControl/ApiKey/678f386f-8262-438f-8af2-ef3eca067b9d/role/weather
+POST {{BaseUrl}}/api/accessControl/ApiKey/{{ClientApiKey}}/role/weather
 Accept: application/json
 Content-Type: application/json
 ApiKey: {{ApiMasterKey}}
@@ -65,7 +65,7 @@ client.test("Creting new role", function(){
 
 ###
 
-GET {{BaseUrl}}/api/accessControl/ApiKey/678f386f-8262-438f-8af2-ef3eca067b9d
+GET {{BaseUrl}}/api/accessControl/ApiKey/{{ClientApiKey}}
 Accept: application/json
 Content-Type: application/json
 ApiKey: {{ApiMasterKey}}
@@ -75,7 +75,7 @@ ApiKey: {{ApiMasterKey}}
 GET {{BaseUrl}}/WeatherForeCast
 Accept: application/json
 Content-Type: application/json
-ApiKey: 678f386f-8262-438f-8af2-ef3eca067b9d
+ApiKey: {{ClientApiKey}}
 
 > {%
 client.test("Calling weather controller with ApiKey", function() {

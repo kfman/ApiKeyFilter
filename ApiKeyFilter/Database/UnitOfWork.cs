@@ -9,6 +9,7 @@ namespace ApiKeyFilter.Database {
         public IRepository<ApiKey> ApiKeys { get; set; }
         public IRepository<Role> Roles { get; set; }
         public IRepository<LogEntry> LogEntries { get; set; }
+        public static string MasterApiKey { get; set; }
 
         public void SaveChanges() {
             _context.SaveChanges();
