@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace ApiKeyFilter.Controllers {
     [ApiController]
     [Route("api/accessControl/[controller]")]
+    [LevelFilter(LevelFilter.MasterKeyOnly)]
     public class ApiKeyController : ControllerBase {
         private readonly IUnitOfWork _unitOfWork;
 
@@ -25,7 +26,7 @@ namespace ApiKeyFilter.Controllers {
         public IActionResult AddNew([FromBody] ApiKeyDto apikey) {
             var apiKey = new ApiKey {
                 Description = apikey.Description,
-                Key = Guid.NewGuid().ToString()
+                Id = Guid.NewGuid().ToString()
             };
             _unitOfWork.ApiKeys.Add(apiKey);
             return Ok(apiKey);

@@ -11,11 +11,9 @@ namespace ApiKeyFilter.Migrations
                 name: "ApiKeys",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                    Id = table.Column<string>(nullable: false),
                     Created = table.Column<DateTime>(nullable: false),
                     Deleted = table.Column<DateTime>(nullable: true),
-                    Key = table.Column<string>(nullable: true),
                     Description = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -24,14 +22,28 @@ namespace ApiKeyFilter.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "LogEntries",
+                columns: table => new
+                {
+                    Id = table.Column<string>(nullable: false),
+                    Created = table.Column<DateTime>(nullable: false),
+                    Deleted = table.Column<DateTime>(nullable: true),
+                    ApiKeyString = table.Column<string>(nullable: true),
+                    Controller = table.Column<string>(nullable: true),
+                    AccessGranted = table.Column<bool>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_LogEntries", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Roles",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                    Id = table.Column<string>(nullable: false),
                     Created = table.Column<DateTime>(nullable: false),
-                    Deleted = table.Column<DateTime>(nullable: true),
-                    Name = table.Column<string>(nullable: true)
+                    Deleted = table.Column<DateTime>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -42,8 +54,8 @@ namespace ApiKeyFilter.Migrations
                 name: "ApiKeyRoles",
                 columns: table => new
                 {
-                    ApiKeyId = table.Column<int>(nullable: false),
-                    RoleId = table.Column<int>(nullable: false)
+                    ApiKeyId = table.Column<string>(nullable: false),
+                    RoleId = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -66,18 +78,15 @@ namespace ApiKeyFilter.Migrations
                 name: "IX_ApiKeyRoles_RoleId",
                 table: "ApiKeyRoles",
                 column: "RoleId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ApiKeys_Key",
-                table: "ApiKeys",
-                column: "Key",
-                unique: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
                 name: "ApiKeyRoles");
+
+            migrationBuilder.DropTable(
+                name: "LogEntries");
 
             migrationBuilder.DropTable(
                 name: "ApiKeys");

@@ -24,8 +24,6 @@ namespace ApiKeyFilter.Database {
 
         protected override void OnModelCreating(ModelBuilder modelBuilder) {
             base.OnModelCreating(modelBuilder);
-            
-            modelBuilder.Entity<ApiKey>().HasIndex(a => a.Key).IsUnique();
 
             modelBuilder.Entity<ApiKey>()
                 .HasMany(a => a.Roles)

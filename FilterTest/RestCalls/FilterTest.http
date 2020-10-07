@@ -1,7 +1,7 @@
 GET {{BaseUrl}}/WeatherForeCast
 Accept: application/json
 Content-Type: application/json
-ApiKey: b0cff762-450f-422b-aa23-73929e8c0681
+ApiKey: {{ApiMasterKey}}
 ###
 
 GET {{BaseUrl}}/WeatherForeCast
@@ -13,13 +13,14 @@ Content-Type: application/json
 GET {{BaseUrl}}/api/accessControl/ApiKey
 Accept: application/json
 Content-Type: application/json
-
+ApiKey: {{ApiMasterKey}}
 ###
 
 
 POST {{BaseUrl}}/api/accessControl/ApiKey
 Accept: application/json
 Content-Type: application/json
+ApiKey: {{ApiMasterKey}}
 
 {
   "description": "Weather test key"

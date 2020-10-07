@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ApiKeyFilter.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20201007065150_CreatedLogEntryTable")]
-    partial class CreatedLogEntryTable
+    [Migration("20201007075025_InitialMigration")]
+    partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,9 +20,8 @@ namespace ApiKeyFilter.Migrations
 
             modelBuilder.Entity("ApiKeyFilter.Models.ApiKey", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("Id")
+                        .HasColumnType("TEXT");
 
                     b.Property<DateTime>("Created")
                         .HasColumnType("TEXT");
@@ -33,24 +32,18 @@ namespace ApiKeyFilter.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Key")
-                        .HasColumnType("TEXT");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("Key")
-                        .IsUnique();
 
                     b.ToTable("ApiKeys");
                 });
 
             modelBuilder.Entity("ApiKeyFilter.Models.ApiKeyRoles", b =>
                 {
-                    b.Property<int>("ApiKeyId")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("ApiKeyId")
+                        .HasColumnType("TEXT");
 
-                    b.Property<int>("RoleId")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("RoleId")
+                        .HasColumnType("TEXT");
 
                     b.HasKey("ApiKeyId", "RoleId");
 
@@ -61,9 +54,8 @@ namespace ApiKeyFilter.Migrations
 
             modelBuilder.Entity("ApiKeyFilter.Models.LogEntry", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("Id")
+                        .HasColumnType("TEXT");
 
                     b.Property<bool>("AccessGranted")
                         .HasColumnType("INTEGER");
@@ -87,17 +79,13 @@ namespace ApiKeyFilter.Migrations
 
             modelBuilder.Entity("ApiKeyFilter.Models.Role", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("Id")
+                        .HasColumnType("TEXT");
 
                     b.Property<DateTime>("Created")
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime?>("Deleted")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Name")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");

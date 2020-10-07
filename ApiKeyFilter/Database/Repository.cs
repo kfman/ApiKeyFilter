@@ -21,7 +21,7 @@ namespace ApiKeyFilter.Database {
             GetIncludeAll = getIncludeAll;
         }
 
-        public virtual TModel Get(int id) =>
+        public virtual TModel Get(string id) =>
             (GetIncludeAll == null ? DbSet : GetIncludeSingle(DbSet)).FirstOrDefault(
                 d => d.Id == id);
 
@@ -45,6 +45,6 @@ namespace ApiKeyFilter.Database {
             Context.SaveChanges();
         }
 
-        public virtual void Delete(int id) => Delete(Get(id));
+        public virtual void Delete(string id) => Delete(Get(id));
     }
 }

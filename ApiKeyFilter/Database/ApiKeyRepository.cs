@@ -12,6 +12,5 @@ namespace ApiKeyFilter.Database {
         }
 
 
-        public ApiKey Get(string apiKeyString) => DbSet.FirstOrDefault(a => a.Key == apiKeyString);
     }
 }

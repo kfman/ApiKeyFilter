@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using ApiKeyFilter.Database;
@@ -21,14 +22,11 @@ namespace ApiKeyFilter {
             // if (actionFilter != null)
             //     Console.WriteLine($"Action: level{actionFilter.Level}");
 
-            var levelFilter = context.Controller.GetType().GetCustomAttribute<LevelFilter>();
-            if (levelFilter != null)
-                Console.WriteLine($"Controller: controller level {levelFilter.Level}");
-
-            Console.WriteLine("ApiFilter called");
+            var levelFilter = context.Controller.GetType().GetCustomAttributes<LevelFilter>()?.ToList();
+            if (levelFilter.Count == 0)
+                return next.Invoke();
 
             if (!context.HttpContext.Request.Headers.ContainsKey("ApiKey")) {
-                if (levelFilter == null) return next.Invoke();
                 context.Result = new UnauthorizedObjectResult("ApiKey is required");
                 return Task.CompletedTask;
             }
@@ -36,14 +34,24 @@ namespace ApiKeyFilter {
             var apiKeyString = context.HttpContext.Request.Headers["ApiKey"].ToString();
             if (apiKeyString == ApiKeyRepository.MasterApiKey) {
                 _unitOfWork.LogEntries.Add(new LogEntry {
+                    Id = Guid.NewGuid().ToString(),
                     ApiKeyString = apiKeyString,
-                    Controller = context.HttpContext.Request.Path.Value, 
+                    Controller = context.HttpContext.Request.Path.Value,
                     AccessGranted = true
                 });
                 return next.Invoke();
             }
 
             var apiKey = _unitOfWork.ApiKeys.Get(apiKeyString);
+            if (apiKey == null) {
+                context.Result = new UnauthorizedObjectResult("ApiKey is invalid");
+                return Task.CompletedTask;
+            }
+
+            if (!apiKey.ContainsRoll(levelFilter.Select(l => l.Level).ToList())) {
+                context.Result = new UnauthorizedObjectResult("ApiKey is invalid");
+                return Task.CompletedTask;
+            }
 
             return next.Invoke();
         }
