@@ -40,19 +40,37 @@ Content-Type: application/json
 ApiKey: {{ApiMasterKey}}
 
 {
+  "description": "Midas Training"
+}
+
+###
+
+POST {{BaseUrl}}/api/accessControl/ApiKey
+Accept: application/json
+Content-Type: application/json
+ApiKey: {{ApiMasterKey}}
+
+{
   "description": "Weather test key"
 }
 
 > {%
 client.test("Creating new ApiKey", function (){
     client.assert(response.status === 200, "Error creating new ApiKey");
-    $newApiKey = response.body.id;
+    client.global.set("new_api_key", response.body.id);
 }) 
  %}
 
 ###
 
-POST {{BaseUrl}}/api/accessControl/ApiKey/{{ClientApiKey}}/role/weather
+POST {{BaseUrl}}/api/accessControl/ApiKey/{{new_api_key}}/role/admin
+Accept: application/json
+Content-Type: application/json
+ApiKey: {{ApiMasterKey}}
+
+###
+
+POST {{BaseUrl}}/api/accessControl/ApiKey/{{new_api_key}}/role/weather
 Accept: application/json
 Content-Type: application/json
 ApiKey: {{ApiMasterKey}}
@@ -65,7 +83,7 @@ client.test("Creting new role", function(){
 
 ###
 
-GET {{BaseUrl}}/api/accessControl/ApiKey/{{ClientApiKey}}
+GET {{BaseUrl}}/api/accessControl/ApiKey/{{new_api_key}}
 Accept: application/json
 Content-Type: application/json
 ApiKey: {{ApiMasterKey}}
@@ -75,7 +93,7 @@ ApiKey: {{ApiMasterKey}}
 GET {{BaseUrl}}/WeatherForeCast
 Accept: application/json
 Content-Type: application/json
-ApiKey: {{ClientApiKey}}
+ApiKey: {{new_api_key}}
 
 > {%
 client.test("Calling weather controller with ApiKey", function() {
@@ -99,7 +117,7 @@ client.test("Calling weather controller with ApiKey", function() {
 GET {{BaseUrl}}/WeatherForeCast
 Accept: application/json
 Content-Type: application/json
-ApiKey: e822f84c-59f8-4c1e-82f8-51401273932c
+ApiKey: {{new_api_key}}
 
 > {%
 client.test("Calling weather controller with ApiKey", function() {

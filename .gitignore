@@ -12,6 +12,7 @@
 *.[Ss]qlite
 *.[Ss]qlite-shm
 *.[Ss]qlite-wal
+.vscode/
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
