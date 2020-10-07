@@ -34,14 +34,40 @@ client.test("Call ApiKey Controller with MasterKey", function() {
 
 ###
 
-#
-#POST {{BaseUrl}}/api/accessControl/ApiKey
-#Accept: application/json
-#Content-Type: application/json
-#ApiKey: {{ApiMasterKey}}
-#
-#{
-#  "description": "Weather test key"
-#}
+POST {{BaseUrl}}/api/accessControl/ApiKey
+Accept: application/json
+Content-Type: application/json
+ApiKey: {{ApiMasterKey}}
+
+{
+  "description": "Weather test key"
+}
+
+> {%
+client.test("Creating new ApiKey", function (){
+    client.assert(response.status === 200, "Error creating new ApiKey");
+    $newApiKey = response.body.id;
+}) 
+ %}
+
+###
+
+POST {{BaseUrl}}/api/accessControl/ApiKey/678f386f-8262-438f-8af2-ef3eca067b9d/role/weather
+Accept: application/json
+Content-Type: application/json
+ApiKey: {{ApiMasterKey}}
+
+> {%
+client.test("Creting new role", function(){
+    client.assert(response.status === 200, "Error creating new role")
+});
+%}
+
+###
+
+GET {{BaseUrl}}/api/accessControl/ApiKey/678f386f-8262-438f-8af2-ef3eca067b9d
+Accept: application/json
+Content-Type: application/json
+ApiKey: {{ApiMasterKey}}
 
 ###

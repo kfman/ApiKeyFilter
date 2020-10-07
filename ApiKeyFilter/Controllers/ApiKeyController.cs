@@ -31,5 +31,35 @@ namespace ApiKeyFilter.Controllers {
             _unitOfWork.ApiKeys.Add(apiKey);
             return Ok(apiKey);
         }
+
+        [HttpDelete("{apiKey}")]
+        public IActionResult DeleteApiKey(string apiKey) {
+            _unitOfWork.ApiKeys.Delete(apiKey, false);
+            return Ok();
+        }
+
+        [HttpDelete("{apiKey}/role/{role}")]
+        public IActionResult DeleteRoleFromApiKey(string apiKey, string role) {
+            var key = _unitOfWork.ApiKeys.Get(apiKey);
+            key.Roles.RemoveAll(r => r.RoleId == role);
+            _unitOfWork.SaveChanges();
+            return Ok();
+        }
+
+        [HttpPost("{apiKey}/role/{role}")]
+        public IActionResult AddRoleToApiKey(string apiKey, string role) {
+            var roleEntry = _unitOfWork.Roles.Get(role) ?? _unitOfWork.Roles.Add(new Role {
+                Id = role
+            });
+
+            var key = _unitOfWork.ApiKeys.Get(apiKey);
+            key.Roles.Add(new ApiKeyRoles {
+                Role = roleEntry,
+                ApiKeyId = apiKey
+            });
+            _unitOfWork.SaveChanges();
+
+            return Ok();
+        }
     }
 }

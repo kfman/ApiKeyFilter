@@ -22,11 +22,12 @@ namespace ApiKeyFilter.Database {
         }
 
         public virtual TModel Get(string id) =>
-            (GetIncludeAll == null ? DbSet : GetIncludeSingle(DbSet)).FirstOrDefault(
+            (GetIncludeSingle == null ? DbSet : GetIncludeSingle(DbSet)).FirstOrDefault(
                 d => d.Id == id);
 
         public virtual IQueryable<TModel> Get() =>
-            GetIncludeAll == null ? DbSet : GetIncludeAll(DbSet);
+            (GetIncludeAll == null ? DbSet : GetIncludeAll(DbSet)).Where(entry =>
+                entry.Deleted == null);
 
         public virtual TModel Add(TModel model) {
             DbSet.Add(model);
@@ -40,11 +41,15 @@ namespace ApiKeyFilter.Database {
             return model;
         }
 
-        public virtual void Delete(TModel model) {
-            DbSet.Remove(model);
+        public virtual void Delete(TModel model, bool hardRemove) {
+            if (hardRemove)
+                DbSet.Remove(model);
+            else
+                model.Deleted = DateTime.Now;
+
             Context.SaveChanges();
         }
 
-        public virtual void Delete(string id) => Delete(Get(id));
+        public virtual void Delete(string id, bool hardRemove) => Delete(Get(id), hardRemove);
     }
 }
