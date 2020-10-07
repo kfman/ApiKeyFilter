@@ -1,8 +1,8 @@
 using ApiKeyFilter.Models;
 
-namespace ApiKeyFilter.Database {
+namespace ApiKeyFilter.Database.Interfaces {
     public interface IUnitOfWork {
-        public IRepository<ApiKey> ApiKeys { get; set; }
+        public IApiKeyRepository ApiKeys { get; set; }
         public IRepository<Role> Roles { get; set; }
         void SaveChanges();
     }

@@ -1,39 +1,50 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using ApiKeyFilter.Database.Interfaces;
 using ApiKeyFilter.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace ApiKeyFilter.Database {
     public class Repository<TModel> : IRepository<TModel> where TModel : ModelBase {
-        private readonly DbSet<TModel> _dbSet;
-        private readonly DbContext _context;
+        protected readonly DbSet<TModel> DbSet;
+        protected readonly DbContext Context;
+        protected readonly Func<DbSet<TModel>, IQueryable<TModel>> GetIncludeSingle;
+        protected readonly Func<DbSet<TModel>, IQueryable<TModel>> GetIncludeAll;
 
-        public Repository(DbSet<TModel> dbSet, DbContext context) {
-            _dbSet = dbSet;
-            _context = context;
+        public Repository(DbSet<TModel> dbSet, DbContext context,
+            Func<DbSet<TModel>, IQueryable<TModel>> getIncludeSingle = null,
+            Func<DbSet<TModel>, IQueryable<TModel>> getIncludeAll = null) {
+            DbSet = dbSet;
+            Context = context;
+            GetIncludeSingle = getIncludeSingle;
+            GetIncludeAll = getIncludeAll;
         }
 
-        public TModel Get(int id) => _dbSet.FirstOrDefault(d => d.Id == id);
+        public virtual TModel Get(int id) =>
+            (GetIncludeAll == null ? DbSet : GetIncludeSingle(DbSet)).FirstOrDefault(
+                d => d.Id == id);
 
-        public IQueryable<TModel> Get() => _dbSet;
+        public virtual IQueryable<TModel> Get() =>
+            GetIncludeAll == null ? DbSet : GetIncludeAll(DbSet);
 
-        public TModel Add(TModel model) {
-            _dbSet.Add(model);
-            _context.SaveChanges();
+        public virtual TModel Add(TModel model) {
+            DbSet.Add(model);
+            Context.SaveChanges();
             return model;
         }
 
-        public TModel Update(TModel model) {
-            _dbSet.Update(model);
-            _context.SaveChanges();
+        public virtual TModel Update(TModel model) {
+            DbSet.Update(model);
+            Context.SaveChanges();
             return model;
         }
 
-        public void Delete(TModel model) {
-            _dbSet.Remove(model);
-            _context.SaveChanges();
+        public virtual void Delete(TModel model) {
+            DbSet.Remove(model);
+            Context.SaveChanges();
         }
 
-        public void Delete(int id) => Delete(Get(id));
+        public virtual void Delete(int id) => Delete(Get(id));
     }
 }

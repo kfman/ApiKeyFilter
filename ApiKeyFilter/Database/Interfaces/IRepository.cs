@@ -1,8 +1,7 @@
-using System.Collections.Generic;
 using System.Linq;
 using ApiKeyFilter.Models;
 
-namespace ApiKeyFilter.Database {
+namespace ApiKeyFilter.Database.Interfaces {
     public interface IRepository<TModel> where TModel : ModelBase {
         TModel Get(int id);
         IQueryable<TModel> Get();
