@@ -14,7 +14,7 @@ namespace ApiKeyFilter.Database {
 
         public Context(string connectionString) {
             _connectionString = connectionString;
-            Database.EnsureCreated();
+            Database.Migrate();
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {

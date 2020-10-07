@@ -33,7 +33,7 @@ namespace ApiKeyFilter {
             }
 
             var apiKeyString = context.HttpContext.Request.Headers["ApiKey"].ToString();
-            if (apiKeyString == ApiKeyRepository.MasterApiKey) {
+            if (apiKeyString == UnitOfWork.MasterApiKey) {
                 AddLogEntry(context, apiKeyString, true);
                 return next.Invoke();
             }
@@ -43,6 +43,11 @@ namespace ApiKeyFilter {
                 context.Result = new UnauthorizedObjectResult("ApiKey is invalid");
                 AddLogEntry(context, apiKeyString, false);
                 return Task.CompletedTask;
+            }
+            
+            if (levelFilter.Any(l=>l.Level == LevelFilter.AllKeysAllowed)){
+                AddLogEntry(context, apiKeyString, true);
+                return next.Invoke();
             }
 
             if (!apiKey.ContainsRoll(levelFilter.Select(l => l.Level).ToList())) {
