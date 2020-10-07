@@ -7,6 +7,7 @@ namespace ApiKeyFilter.Database {
 
         public DbSet<ApiKey> ApiKeys { get; set; }
         public DbSet<Role> Roles { get; set; }
+        public DbSet<LogEntry> LogEntries { get; set; }
 
         public Context() : this("Data Source=../apiKeys.sqlite") {
         }

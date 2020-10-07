@@ -3,14 +3,18 @@ using ApiKeyFilter.Models;
 
 namespace ApiKeyFilter.Database {
     public class UnitOfWork: IUnitOfWork {
-        private Context _context;
+        private readonly bool _logAccess;
+        private readonly Context _context;
         public IApiKeyRepository ApiKeys { get; set; }
         public IRepository<Role> Roles { get; set; }
+        public IRepository<LogEntry> LogEntries { get; set; }
+
         public void SaveChanges() {
             _context.SaveChanges();
         }
 
-        public UnitOfWork(string connectionString) {
+        public UnitOfWork(string connectionString, bool logAccess) {
+            _logAccess = logAccess;
             _context = new Context(connectionString);
             InitRepositories();
         }
@@ -18,6 +22,7 @@ namespace ApiKeyFilter.Database {
         private void InitRepositories() {
             ApiKeys = new ApiKeyRepository(_context.ApiKeys, _context);
             Roles = new Repository<Role>(_context.Roles,_context);
+            LogEntries = new Repository<LogEntry>(_context.LogEntries, _context);
             
         }
     }

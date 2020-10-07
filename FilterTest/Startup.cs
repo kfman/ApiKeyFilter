@@ -19,7 +19,7 @@ namespace FilterTest {
             services.AddControllers(
                 e => e.Filters.Add<ApiFilter>()
             );
-            services.AddApiKeyController();
+            services.AddApiKeyController("b0cff762-450f-422b-aa23-73929e8c0681");
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

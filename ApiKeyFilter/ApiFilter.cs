@@ -3,6 +3,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using ApiKeyFilter.Database;
 using ApiKeyFilter.Database.Interfaces;
+using ApiKeyFilter.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
@@ -13,7 +14,7 @@ namespace ApiKeyFilter {
         public ApiFilter(IUnitOfWork unitOfWork) {
             _unitOfWork = unitOfWork;
         }
-        
+
         public Task OnActionExecutionAsync(ActionExecutingContext context,
             ActionExecutionDelegate next) {
             var actionFilter = context.ActionDescriptor.AttributeRouteInfo;
@@ -33,8 +34,17 @@ namespace ApiKeyFilter {
             }
 
             var apiKeyString = context.HttpContext.Request.Headers["ApiKey"].ToString();
+            if (apiKeyString == ApiKeyRepository.MasterApiKey) {
+                _unitOfWork.LogEntries.Add(new LogEntry {
+                    ApiKeyString = apiKeyString,
+                    Controller = context.HttpContext.Request.Path.Value, 
+                    AccessGranted = true
+                });
+                return next.Invoke();
+            }
+
             var apiKey = _unitOfWork.ApiKeys.Get(apiKeyString);
-            
+
             return next.Invoke();
         }
     }

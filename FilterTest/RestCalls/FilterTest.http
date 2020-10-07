@@ -1,7 +1,7 @@
 GET {{BaseUrl}}/WeatherForeCast
 Accept: application/json
 Content-Type: application/json
-ApiKey: "12345"
+ApiKey: b0cff762-450f-422b-aa23-73929e8c0681
 ###
 
 GET {{BaseUrl}}/WeatherForeCast
