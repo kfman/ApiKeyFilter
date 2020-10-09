@@ -23,3 +23,28 @@ To apply a filter to a controller just add the filter attribute to your controll
     [ApiKeyFilter.LevelFilter("weather")]
     public class WeatherForecastController : ControllerBase {
 ```
+
+## Access control
+To add a new API key call the url
+```
+POST http://{baseUrlOfHostProject}/api/accessControl/ApiKey
+
+{
+	"description": "New Api Key"
+}
+```
+as a response you get the new API Key
+```json
+{
+  "description": "New Api Key",
+  "roles": null,
+  "id": "a86b941b-0000-0000-0000-d1c7f68b5022",
+  "created": "2020-10-09T05:24:54.1935783+00:00",
+  "deleted": null
+}
+```
+
+To add an API key to a specific role call
+```
+POST http://{baseUrlOfHostProject}/api/accessControl/ApiKey/a86b941b-0000-0000-0000-d1c7f68b5022/role/<NameOfRole>
+```
