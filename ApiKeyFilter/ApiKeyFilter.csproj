@@ -5,6 +5,12 @@
         <Title>API Key Filter</Title>
         <Authors>Klaus Fischer</Authors>
         <Description>SQLite based API Key filter</Description>
+        <PackageVersion>1.0.1</PackageVersion>
+        <Copyright>2020</Copyright>
+        <PackageProjectUrl>http://cardassia:5100/Allgemeines/ApiFilter.AspNet</PackageProjectUrl>
+        <RepositoryUrl>http://cardassia:5100/Allgemeines/ApiFilter.AspNet</RepositoryUrl>
+        <RepositoryType>GIT</RepositoryType>
+        <PackageTags>ASP.NET ApiKey Middleware Filter</PackageTags>
     </PropertyGroup>
 
     <ItemGroup>
