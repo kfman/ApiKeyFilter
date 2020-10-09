@@ -23,7 +23,8 @@ namespace ApiKeyFilter.Database {
 
         private void InitRepositories() {
             ApiKeys = new Repository<ApiKey>(_context.ApiKeys, _context,
-                getIncludeSingle: (db) => db.Include(a => a.Roles).ThenInclude(r => r.Role));
+                (db) => db.Include(a => a.Roles).ThenInclude(r => r.Role),
+                (db) => db.Include(a => a.Roles).ThenInclude(r => r.Role));
             Roles = new Repository<Role>(_context.Roles, _context);
             LogEntries = new Repository<LogEntry>(_context.LogEntries, _context);
         }

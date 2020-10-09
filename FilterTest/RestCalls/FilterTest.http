@@ -34,6 +34,19 @@ client.test("Call ApiKey Controller with MasterKey", function() {
 
 ###
 
+GET {{BaseUrl}}/api/accessControl/ApiKey/70f6c702-bfc5-4140-a795-bf8223bdb15f
+Accept: application/json
+Content-Type: application/json
+ApiKey: {{ApiMasterKey}}
+
+> {%
+client.test("Call ApiKey Controller with MasterKey", function() {
+  client.assert(response.status === 200, "Response status is not 200");
+});
+%}
+
+###
+
 POST {{BaseUrl}}/api/accessControl/ApiKey
 Accept: application/json
 Content-Type: application/json
