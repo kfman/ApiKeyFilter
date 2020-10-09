@@ -7,8 +7,8 @@
         <Description>SQLite based API Key filter</Description>
         <PackageVersion>1.0.2</PackageVersion>
         <Copyright>2020</Copyright>
-        <PackageProjectUrl>http://cardassia:5100/Allgemeines/ApiFilter.AspNet</PackageProjectUrl>
-        <RepositoryUrl>http://cardassia:5100/Allgemeines/ApiFilter.AspNet</RepositoryUrl>
+        <PackageProjectUrl>https://github.com/kfman/ApiKeyFilter</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/kfman/ApiKeyFilter</RepositoryUrl>
         <RepositoryType>GIT</RepositoryType>
         <PackageTags>ASP.NET ApiKey Middleware Filter</PackageTags>
     </PropertyGroup>

@@ -9,7 +9,7 @@ using Microsoft.Extensions.Logging;
 namespace FilterTest.Controllers {
     [ApiController]
     [Route("[controller]")]
-    [ApiKeyFilter.LevelFilter(LevelFilter.AllKeysAllowed)]
+    [ApiKeyFilter.LevelFilter("weather")]
     public class WeatherForecastController : ControllerBase {
         private static readonly string[] Summaries = new[] {
             "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering",

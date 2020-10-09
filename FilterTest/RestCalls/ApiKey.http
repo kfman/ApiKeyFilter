@@ -82,7 +82,7 @@ ApiKey: {{ApiMasterKey}}
 
 > {%
 client.test("Getting new API Key data", function(){
-    client.assert(response.status === 405, "Methode allowed");
+    client.assert(response.status === 200, "Error getting information about api key");
 }); 
  %}
 
