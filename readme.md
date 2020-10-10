@@ -4,6 +4,8 @@ The package adds an ApiKey filter to your Asp.Net Core Application.
 
 The API Keys are organized in an SQLite database. The Roles can be defined as string.
 
+Available on [Nuget](https://www.nuget.org/packages/ApiKeyFilter/)
+
 ## Installation
 
 Make sure that your __ConfigureServices__ contains the following lines. You have to specify a master key
