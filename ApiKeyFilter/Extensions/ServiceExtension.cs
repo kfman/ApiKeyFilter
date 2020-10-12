@@ -1,3 +1,4 @@
+using System;
 using ApiKeyFilter.Controllers;
 using ApiKeyFilter.Database;
 using ApiKeyFilter.Database.Interfaces;
@@ -9,8 +10,10 @@ namespace ApiKeyFilter.Extensions {
             bool logAccess = false) {
             UnitOfWork.MasterApiKey = masterApiKey;
             service.AddMvc().AddApplicationPart(typeof(ApiKeyController).Assembly);
+            if (!System.IO.Directory.Exists("database"))
+                System.IO.Directory.CreateDirectory("database");
             service.AddTransient<IUnitOfWork>(_ =>
-                new UnitOfWork("Data Source=apiKeys.sqlite", logAccess));
+                new UnitOfWork("Data Source=./database/apiKeys.sqlite", logAccess));
         }
     }
 }
