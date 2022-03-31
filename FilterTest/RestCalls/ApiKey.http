@@ -18,7 +18,7 @@ ApiKey: {{ApiMasterKey}}
 
 > {%
 client.test("Call ApiKey Controller with MasterKey", function() {
-  client.assert(response.status === 200, "Response status is not 200");
+  client.assert(response.status === 204, "Response status is not 204");
 });
 %}
 
