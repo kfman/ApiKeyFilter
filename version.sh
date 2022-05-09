@@ -16,11 +16,6 @@ sed -i "" "s$<PackageVersion>.*</PackageVersion>$<PackageVersion>$1</PackageVers
 
 CURRENT=$(git branch | sed -n -e 's/^\* \(.*\)/\1/p')
 
-if ! dotnet build -c release; then
-  echo "Build failed"
-  exit 102
-fi
-
 if [ "$CURRENT" != 'master' ]; then
   if [ "$2" != 'pack' ]; then
     echo "Your branch has to be 'master' for GITy things but is '$CURRENT'"
@@ -52,6 +47,11 @@ git push origin master
 git push --tags
 
 if [ "$2" = 'pack' ]; then
+  if ! dotnet build -c release; then
+    echo "Build failed"
+    exit 102
+  fi
+
   dotnet pack ApiKeyFilter -c release
   dotnet nuget push -s http://172.16.20.73:5110/v3/index.json "./ApiKeyFilter/bin/Release/ApiKeyFilter.$1.nupkg" --api-key ElotecNuGet
 fi

@@ -10,29 +10,26 @@
         <RepositoryUrl>https://github.com/kfman/ApiKeyFilter</RepositoryUrl>
         <RepositoryType>GIT</RepositoryType>
         <PackageTags>ASP.NET ApiKey Middleware Filter</PackageTags>
-<<<<<<< HEAD
         <PackageLicense>https://raw.githubusercontent.com/kfman/ApiKeyFilter/master/license.txt</PackageLicense>
-=======
         <LangVersion>10</LangVersion>
         <TargetFramework>net6.0</TargetFramework>
         <Nullable>enable</Nullable>
         <AssemblyVersion>1.0.5</AssemblyVersion>
         <FileVersion>1.0.5</FileVersion>
->>>>>>> develop
     </PropertyGroup>
 
-    
+
     <ItemGroup>
-      <PackageReference Include="AutoMapper" Version="11.0.1" />
-      <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.2.0" />
-      <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.3">
-        <PrivateAssets>all</PrivateAssets>
-        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-      </PackageReference>
-      <PackageReference Include="Microsoft.EntityFrameworkCore.Relational.Design" Version="1.1.6" />
-      <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="6.0.3" />
-      <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite.Core" Version="6.0.3" />
-      <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite.Design" Version="1.1.6" />
+        <PackageReference Include="AutoMapper" Version="11.0.1"/>
+        <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.2.0"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.3">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Relational.Design" Version="1.1.6"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="6.0.3"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite.Core" Version="6.0.3"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite.Design" Version="1.1.6"/>
     </ItemGroup>
 
 </Project>
