@@ -48,25 +48,13 @@ namespace ApiKeyFilter.Controllers {
 
         [HttpDelete("{apiKey}/role/{role}")]
         public IActionResult DeleteRoleFromApiKey(string apiKey, string role) {
-            var key = _unitOfWork.ApiKeys.Get(apiKey);
-            key.Roles.RemoveAll(r => r.RoleId == role);
-            _unitOfWork.SaveChanges();
+            _unitOfWork.Mediator.RemoveApiKeyFromRole(apiKey, role);
             return Ok();
         }
 
         [HttpPost("{apiKey}/role/{role}")]
         public IActionResult AddRoleToApiKey(string apiKey, string role) {
-            var roleEntry = _unitOfWork.Roles.Get(role) ?? _unitOfWork.Roles.Add(new Role {
-                Id = role
-            });
-
-            var key = _unitOfWork.ApiKeys.Get(apiKey);
-            key.Roles.Add(new ApiKeyRoles {
-                Role = roleEntry,
-                ApiKeyId = apiKey
-            });
-            _unitOfWork.SaveChanges();
-
+            _unitOfWork.Mediator.AddApiKeyToRole(apiKey, role);
             return Ok();
         }
     }

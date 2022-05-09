@@ -1,4 +1,3 @@
-using System;
 using System.Text.RegularExpressions;
 using ApiKeyFilter.Database.Interfaces;
 using ApiKeyFilter.Models;
@@ -13,6 +12,8 @@ namespace ApiKeyFilter.Database {
         public IRepository<LogEntry> LogEntries { get; set; } = null!;
         public static string MasterApiKey { get; set; } = "00000000-0000-0000-0000-000000000000";
 
+        public IMediator Mediator { get; set; }
+
         public void SaveChanges() {
             _context.SaveChanges();
         }
@@ -26,6 +27,7 @@ namespace ApiKeyFilter.Database {
         public UnitOfWork(string connectionString, bool logAccess) {
             _logAccess = logAccess;
             _context = new Context(connectionString);
+            Mediator = new Mediator(this);
             InitRepositories();
         }
 
@@ -33,7 +35,8 @@ namespace ApiKeyFilter.Database {
             ApiKeys = new Repository<ApiKey>(_context.ApiKeys, _context,
                 (db) => db.Include(a => a.Roles).ThenInclude(r => r.Role),
                 (db) => db.Include(a => a.Roles).ThenInclude(r => r.Role));
-            Roles = new Repository<Role>(_context.Roles, _context);
+            Roles = new Repository<Role>(_context.Roles, _context,
+                getIncludeSingle: (db) => db.Include(r => r.ApiKeys));
             LogEntries = new Repository<LogEntry>(_context.LogEntries, _context);
         }
     }
