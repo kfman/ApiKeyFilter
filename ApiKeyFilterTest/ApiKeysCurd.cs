@@ -63,7 +63,7 @@ public class ApiKeysCurd {
     public void ReadRoleFromKey_ShouldContainRole() {
         _apiKeyId.Should().NotBeNull();
 
-        var apiKey = _unitOfWork.ApiKeys.Get(_apiKeyId);
+        var apiKey = _unitOfWork.ApiKeys.Get(_apiKeyId!);
         apiKey.Should().NotBeNull();
         apiKey?.Roles.Should().Contain(r => r.RoleId == "TestRole");
     }
@@ -73,7 +73,7 @@ public class ApiKeysCurd {
     public void ReadRoleFromKey_ShouldNotContainRole() {
         _apiKeyId.Should().NotBeNull();
 
-        var apiKey = _unitOfWork.ApiKeys.Get(_apiKeyId);
+        var apiKey = _unitOfWork.ApiKeys.Get(_apiKeyId!);
         apiKey.Should().NotBeNull();
         apiKey?.Roles.Should().NotContain(r => r.RoleId == "UnknownRole");
     }
@@ -89,16 +89,16 @@ public class ApiKeysCurd {
     [Test]
     [Order(70)]
     public void RemoveRoleFromKey() {
-        var apiKey = _unitOfWork.ApiKeys.Get(_apiKeyId);
-        _unitOfWork.Mediator.RemoveApiKeyFromRole(_apiKeyId, "TestRole");
+        var apiKey = _unitOfWork.ApiKeys.Get(_apiKeyId!);
+        _unitOfWork.Mediator.RemoveApiKeyFromRole(_apiKeyId!, "TestRole");
     }
 
     [Test]
     [Order(71)]
     public void ReadRemovedRoleFromKey_ShouldContainRole() {
-        _apiKeyId.Should().NotBeNull();
+        _apiKeyId!.Should().NotBeNull();
 
-        var apiKey = _unitOfWork.ApiKeys.Get(_apiKeyId);
+        var apiKey = _unitOfWork.ApiKeys.Get(_apiKeyId!);
         apiKey.Should().NotBeNull();
         apiKey?.Roles.Should().NotContain(r => r.RoleId == "TestRole");
     }
@@ -106,14 +106,15 @@ public class ApiKeysCurd {
     [Test]
     [Order(80)]
     public void RemoveKey() {
-        _unitOfWork.ApiKeys.Delete(_apiKeyId);
+        _unitOfWork.ApiKeys.Delete(_apiKeyId!);
     }
 
     [Test]
     [Order(81)]
     public void RemovedKeyShouldHaveDeletedDate() {
-        var apiKey = _unitOfWork.ApiKeys.Get(_apiKeyId);
-        apiKey.Deleted.Should().NotBeNull();
+        var apiKey = _unitOfWork.ApiKeys.Get(_apiKeyId!);
+        apiKey.Should().NotBeNull();
+        apiKey?.Deleted.Should().NotBeNull();
     }
 
     [TearDown]
