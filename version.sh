@@ -1,13 +1,11 @@
 #!/bin/zsh
 
-if [ -z "$1" ]
- then
-   echo "Version missing"
-  exit 1 
+if [ -z "$1" ]; then
+  echo "Version missing"
+  exit 1
 fi
 
-if ! dotnet test
-then
+if ! dotnet test; then
   echo "Test not passed"
   exit 2
 fi
@@ -18,15 +16,21 @@ sed -i "" "s$<PackageVersion>.*</PackageVersion>$<PackageVersion>$1</PackageVers
 
 CURRENT=$(git branch | sed -n -e 's/^\* \(.*\)/\1/p')
 
-
 if ! dotnet build -c release; then
   echo "Build failed"
   exit 102
 fi
 
-if [ $CURRENT != 'master' ]; then
-  echo "Your branch has to be 'master' for GITy things but is '$CURRENT'"
-  exit 1
+if [ "$CURRENT" != 'master' ]; then
+  if [ "$2" != 'pack' ]; then
+    echo "Your branch has to be 'master' for GITy things but is '$CURRENT'"
+    exit 1
+  fi
+
+  git checkout master
+  git pull
+
+  git merge $CURRENT --no-ff
 fi
 
 git add .
@@ -35,3 +39,13 @@ git tag -a V$1 -m "Version $1"
 
 git push origin master
 git push --tags
+
+if [ "$2" = 'pack' ]; then
+  dotnet pack ApiKeyFilter -c release
+  dotnet nuget push -s http://172.16.20.73:5110/v3/index.json "./ApiKeyFilter/bin/Release/ApiKeyFilter.$1.nupkg" --api-key ElotecNuGet
+fi
+
+if [ "$CURRENT" != 'master' ]; then
+  git checkout $CURRENT
+  git merge master
+fi
