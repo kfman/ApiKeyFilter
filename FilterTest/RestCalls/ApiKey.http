@@ -1,3 +1,4 @@
+### GET all API keys
 GET {{BaseUrl}}/api/accessControl/ApiKey
 Accept: application/json
 Content-Type: application/json
@@ -9,8 +10,7 @@ client.test("Call ApiKey Controller with MasterKey", function() {
 });
 %}
 
-###
-
+### 
 GET {{BaseUrl}}/api/accessControl/ApiKey/70f6c702-bfc5-4140-a795-bf8223bdb15f
 Accept: application/json
 Content-Type: application/json
@@ -18,12 +18,11 @@ ApiKey: {{ApiMasterKey}}
 
 > {%
 client.test("Call ApiKey Controller with MasterKey", function() {
-  client.assert(response.status === 200, "Response status is not 200");
+  client.assert(response.status === 204, "Response status is not 204");
 });
 %}
 
-###
-
+### POST Create new API key unauthorized
 POST {{BaseUrl}}/api/accessControl/ApiKey
 Accept: application/json
 Content-Type: application/json
@@ -35,8 +34,9 @@ ApiKey: {{ApiMasterKey}}
 > {%
 client.global.set('unauthorized_api_key', response.body.id); 
  %}
-###
 
+
+### POST Create new API key authorized
 POST {{BaseUrl}}/api/accessControl/ApiKey
 Accept: application/json
 Content-Type: application/json
@@ -53,15 +53,13 @@ client.test("Creating new ApiKey", function (){
 }) 
  %}
 
-###
-
+### POST Add authorized key to admin role
 POST {{BaseUrl}}/api/accessControl/ApiKey/{{new_api_key}}/role/admin
 Accept: application/json
 Content-Type: application/json
 ApiKey: {{ApiMasterKey}}
 
-###
-
+### POST Add authorized key to weather role
 POST {{BaseUrl}}/api/accessControl/ApiKey/{{new_api_key}}/role/weather
 Accept: application/json
 Content-Type: application/json
@@ -73,8 +71,7 @@ client.test("Creating new role", function(){
 });
 %}
 
-###
-
+### GET Roles for authorized API key
 GET {{BaseUrl}}/api/accessControl/ApiKey/{{new_api_key}}
 Accept: application/json
 Content-Type: application/json
@@ -85,5 +82,3 @@ client.test("Getting new API Key data", function(){
     client.assert(response.status === 200, "Error getting information about api key");
 }); 
  %}
-
-###

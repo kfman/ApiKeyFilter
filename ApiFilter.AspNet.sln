@@ -4,6 +4,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FilterTest", "FilterTest\Fi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiKeyFilter", "ApiKeyFilter\ApiKeyFilter.csproj", "{7B064F20-8DCE-46EA-B7A0-20101B907420}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{8813F647-F4EF-4947-9E74-C09002EE03C6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiKeyFilterTest", "ApiKeyFilterTest\ApiKeyFilterTest.csproj", "{C1C384D5-5FA4-4799-BE32-13FE25144A7A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +22,12 @@ Global
 		{7B064F20-8DCE-46EA-B7A0-20101B907420}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7B064F20-8DCE-46EA-B7A0-20101B907420}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7B064F20-8DCE-46EA-B7A0-20101B907420}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C1C384D5-5FA4-4799-BE32-13FE25144A7A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C1C384D5-5FA4-4799-BE32-13FE25144A7A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C1C384D5-5FA4-4799-BE32-13FE25144A7A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C1C384D5-5FA4-4799-BE32-13FE25144A7A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{C1C384D5-5FA4-4799-BE32-13FE25144A7A} = {8813F647-F4EF-4947-9E74-C09002EE03C6}
 	EndGlobalSection
 EndGlobal

@@ -1,3 +1,4 @@
+### GET with API master should be successful
 GET {{BaseUrl}}/WeatherForeCast
 Accept: application/json
 Content-Type: application/json
@@ -8,8 +9,9 @@ client.test("Calling weather controller with ApiKey", function() {
   client.assert(response.status === 200, "Response status is not 200");
 });
 %}
-###
 
+
+### GET without key should cause 401
 GET {{BaseUrl}}/WeatherForeCast
 Accept: application/json
 Content-Type: application/json
@@ -19,9 +21,9 @@ client.test("Call Weather controller without ApiKey --> 401", function() {
   client.assert(response.status === 401, "Response status is not 401");
 });
 %}
-###
 
 
+### GET with new API key should be successful
 GET {{BaseUrl}}/WeatherForeCast
 Accept: application/json
 Content-Type: application/json
@@ -32,8 +34,9 @@ client.test("Calling weather controller with ApiKey", function() {
   client.assert(response.status === 200, "Response status is not 200");
 });
 %}
-###
 
+
+### GET with unknown key should cause 401
 GET {{BaseUrl}}/WeatherForeCast
 Accept: application/json
 Content-Type: application/json
@@ -44,8 +47,9 @@ client.test("Calling weather controller with ApiKey", function() {
   client.assert(response.status === 401, "Response status is not 401");
 });
 %}
-###
 
+
+### 
 GET {{BaseUrl}}/WeatherForeCast
 Accept: application/json
 Content-Type: application/json

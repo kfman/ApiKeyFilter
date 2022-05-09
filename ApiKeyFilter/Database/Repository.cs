@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using ApiKeyFilter.Database.Interfaces;
 using ApiKeyFilter.Models;
@@ -9,19 +8,19 @@ namespace ApiKeyFilter.Database {
     public class Repository<TModel> : IRepository<TModel> where TModel : ModelBase {
         protected readonly DbSet<TModel> DbSet;
         protected readonly DbContext Context;
-        protected readonly Func<DbSet<TModel>, IQueryable<TModel>> GetIncludeSingle;
-        protected readonly Func<DbSet<TModel>, IQueryable<TModel>> GetIncludeAll;
+        protected readonly Func<DbSet<TModel>, IQueryable<TModel>>? GetIncludeSingle;
+        protected readonly Func<DbSet<TModel>, IQueryable<TModel>>? GetIncludeAll;
 
         public Repository(DbSet<TModel> dbSet, DbContext context,
-            Func<DbSet<TModel>, IQueryable<TModel>> getIncludeSingle = null,
-            Func<DbSet<TModel>, IQueryable<TModel>> getIncludeAll = null) {
+            Func<DbSet<TModel>, IQueryable<TModel>>? getIncludeSingle = null,
+            Func<DbSet<TModel>, IQueryable<TModel>>? getIncludeAll = null) {
             DbSet = dbSet;
             Context = context;
             GetIncludeSingle = getIncludeSingle;
             GetIncludeAll = getIncludeAll;
         }
 
-        public virtual TModel Get(string id) =>
+        public virtual TModel? Get(string id) =>
             (GetIncludeSingle == null ? DbSet : GetIncludeSingle(DbSet)).FirstOrDefault(
                 d => d.Id == id);
 
@@ -41,7 +40,10 @@ namespace ApiKeyFilter.Database {
             return model;
         }
 
-        public virtual void Delete(TModel model, bool hardRemove) {
+        public virtual void Delete(TModel? model, bool hardRemove) {
+            if (model == null)
+                return;
+
             if (hardRemove)
                 DbSet.Remove(model);
             else
