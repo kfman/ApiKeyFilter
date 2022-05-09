@@ -6,5 +6,6 @@ namespace ApiKeyFilter.Database.Interfaces {
         public IRepository<Role> Roles { get; set; }
         public IRepository<LogEntry> LogEntries { get; set; }
         void SaveChanges();
+        string GetDatabasePath();
     }
 }

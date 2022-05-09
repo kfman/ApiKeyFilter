@@ -1,3 +1,5 @@
+using System;
+using System.Text.RegularExpressions;
 using ApiKeyFilter.Database.Interfaces;
 using ApiKeyFilter.Models;
 using Microsoft.EntityFrameworkCore;
@@ -6,13 +8,19 @@ namespace ApiKeyFilter.Database {
     public class UnitOfWork : IUnitOfWork {
         private readonly bool _logAccess;
         private readonly Context _context;
-        public IRepository<ApiKey> ApiKeys { get; set; }
-        public IRepository<Role> Roles { get; set; }
-        public IRepository<LogEntry> LogEntries { get; set; }
-        public static string MasterApiKey { get; set; }
+        public IRepository<ApiKey> ApiKeys { get; set; } = null!;
+        public IRepository<Role> Roles { get; set; } = null!;
+        public IRepository<LogEntry> LogEntries { get; set; } = null!;
+        public static string MasterApiKey { get; set; } = "00000000-0000-0000-0000-000000000000";
 
         public void SaveChanges() {
             _context.SaveChanges();
+        }
+
+        public string GetDatabasePath() {
+            var regex = new Regex("^(?<DataSource>[Dd]ata [Ss]ource=)(?<FileName>.*)$");
+            var matches = regex.Matches(_context.Database?.GetConnectionString() ?? "");
+            return matches.Count == 0 ? "" : matches[0].Groups["FileName"].Value;
         }
 
         public UnitOfWork(string connectionString, bool logAccess) {

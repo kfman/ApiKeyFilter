@@ -35,10 +35,7 @@ namespace ApiKeyFilter.Controllers {
 
         [HttpPost]
         public IActionResult AddNew([FromBody] ApiKeyDto apikey) {
-            var apiKey = new ApiKey {
-                Description = apikey.Description,
-                Id = Guid.NewGuid().ToString()
-            };
+            var apiKey = new ApiKey(apikey.Description);
             _unitOfWork.ApiKeys.Add(apiKey);
             return Ok(_mapper.Map<ApiKeyDto>(apiKey));
         }
