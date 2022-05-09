@@ -4,7 +4,7 @@
         <Title>API Key Filter</Title>
         <Authors>Klaus Fischer</Authors>
         <Description>SQLite based API Key filter</Description>
-        <PackageVersion>1.0.4</PackageVersion>
+        <PackageVersion>1.0.5</PackageVersion>
         <Copyright>2020</Copyright>
         <PackageProjectUrl>http://cardassia:5100/Allgemeines/ApiFilter.AspNet</PackageProjectUrl>
         <RepositoryUrl>http://cardassia:5100/Allgemeines/ApiFilter.AspNet</RepositoryUrl>
@@ -13,8 +13,8 @@
         <LangVersion>10</LangVersion>
         <TargetFramework>net6.0</TargetFramework>
         <Nullable>enable</Nullable>
-        <AssemblyVersion>1.0.4</AssemblyVersion>
-        <FileVersion>1.0.4</FileVersion>
+        <AssemblyVersion>1.0.5</AssemblyVersion>
+        <FileVersion>1.0.5</FileVersion>
     </PropertyGroup>
 
     <ItemGroup>

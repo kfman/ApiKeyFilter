@@ -27,8 +27,19 @@ if [ "$CURRENT" != 'master' ]; then
     exit 1
   fi
 
-  git checkout master
-  git pull
+  git add .
+  git commit -m "Preparing release"
+  git push
+
+  if ! git checkout master; then
+    echo Git Error - CHECKOUT MASTER
+    exit 200
+  fi
+
+  if ! git pull; then
+    echo Git Error - PULL
+    exit 200
+  fi
 
   git merge $CURRENT --no-ff
 fi
