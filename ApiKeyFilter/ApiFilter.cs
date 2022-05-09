@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -22,7 +23,9 @@ namespace ApiKeyFilter {
             // if (actionFilter != null)
             //     Console.WriteLine($"Action: level{actionFilter.Level}");
 
-            var levelFilter = context.Controller.GetType().GetCustomAttributes<LevelFilter>()?.ToList();
+            var levelFilter =
+                context.Controller.GetType().GetCustomAttributes<LevelFilter>()?.ToList() ??
+                new List<LevelFilter>();
             if (levelFilter.Count == 0)
                 return next.Invoke();
 
@@ -44,8 +47,8 @@ namespace ApiKeyFilter {
                 AddLogEntry(context, apiKeyString, false);
                 return Task.CompletedTask;
             }
-            
-            if (levelFilter.Any(l=>l.Level == LevelFilter.AllKeysAllowed)){
+
+            if (levelFilter.Any(l => l.Level == LevelFilter.AllKeysAllowed)) {
                 AddLogEntry(context, apiKeyString, true);
                 return next.Invoke();
             }

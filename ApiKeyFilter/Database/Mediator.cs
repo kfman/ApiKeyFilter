@@ -1,4 +1,3 @@
-using System;
 using ApiKeyFilter.Database.Interfaces;
 using ApiKeyFilter.Models;
 
@@ -27,6 +26,8 @@ public class Mediator : IMediator {
 
     public void RemoveApiKeyFromRole(string keyId, string roleId) {
         var key = _unitOfWork.ApiKeys.Get(keyId);
+        if (key == null)
+            return;
         key.Roles.RemoveAll(r => r.RoleId == roleId);
         _unitOfWork.SaveChanges();
     }
